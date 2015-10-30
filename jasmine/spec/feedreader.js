@@ -12,7 +12,7 @@ $(function() {
     
     /* Define some variables that will be used through the tests */
     var allFeedsLength = allFeeds.length;
-    var $bodyMenuHidden = $('body').hasClass('menu-hidden');
+    var $body = $('body');
     
     /* First test suite, about the RSS feeds definitions,
     * and the allFeeds variable in our application.
@@ -35,7 +35,7 @@ $(function() {
             for (var i = 0; i < allFeedsLength; i++) {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url.length).not.toBe(0);
-            }            
+            }
         });
 
         /* 'have name' tests to loop through each feed
@@ -46,18 +46,18 @@ $(function() {
             for (var i = 0; i < allFeedsLength; i++) {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name.length).not.toBe(0);
-            }            
+            }
         });
     });
 
     /* Second test suite, about the sidebar menu */
-    describe('The menu', function() {   
+    describe('The menu', function() {
 
         /* 'is hidden by default' ensures the menu element is hidden
          * by default, looking if the body tag has the class 'menu-hidden'. 
          */
         it('is hidden by default', function() {
-            expect($bodyMenuHidden).toEqual(true);
+            expect($body.hasClass('menu-hidden')).toEqual(true);
         });
         
          /* 'changes visibility' ensures that the menu changes visibility
@@ -66,10 +66,10 @@ $(function() {
           */
          it('changes visibility', function() {
              $('.menu-icon-link').trigger('click');
-             expect($bodyMenuHidden).toBe(false);
+             expect($body.hasClass('menu-hidden')).toBe(false);
              
              $('.menu-icon-link').trigger('click');
-             expect($bodyMenuHidden).toBe(true);
+             expect($body.hasClass('menu-hidden')).toBe(true);
          });
     });
     
@@ -82,12 +82,11 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test wil require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-        it('', function() {
+        it('has an .entry element after loading', function() {
             
         });
-        
     });
-        
+    
     /* Fourth test suite, about the new feeds loaded */
     describe('New Feed Selection', function() {
         
@@ -98,6 +97,5 @@ $(function() {
         it('', function() {
             
         });
-        
-    });        
+    });
 }());
