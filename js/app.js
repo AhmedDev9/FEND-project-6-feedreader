@@ -8,7 +8,7 @@
 
 // The names and URLs to all of the feeds we'd like available.
 var allFeeds = [
-    {
+   {
         name: 'Udacity Blog',
         url: 'http://blog.udacity.com/feeds/posts/default?alt=rss'
     }, {
@@ -109,6 +109,8 @@ $(function() {
 
         feedId++;
     });
+    
+    console.log(allFeeds);
 
     /* When a link in our feedList is clicked on, we want to hide
      * the menu, load the feed, and prevent the default action
