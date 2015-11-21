@@ -33,7 +33,7 @@ $(function () {
          * in the allFeeds object and ensure it has a URL
          * defined and that the URL is not empty.
          */
-        it('have URL', function () {
+        it('have URL and is not empty', function () {
             for (var i = 0; i < allFeedsLength; i++) {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url.length).not.toBe(0);
@@ -44,7 +44,7 @@ $(function () {
          * in the allFeeds object and ensure it has a name
          * defined and that the name is not empty.
          */
-        it('have name', function () {
+        it('have name and is not empty', function () {
             for (var i = 0; i < allFeedsLength; i++) {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name.length).not.toBe(0);
@@ -66,12 +66,13 @@ $(function () {
          * when the menu icon is clicked: the menu is displayed when
          * clicked the first time, and is hidden when clicked again.
          */
-        it('changes visibility', function () {
+        it('changes visibility when menu icon is clicked', function () {
             $('.menu-icon-link').trigger('click');
-            expect($body.hasClass('menu-hidden')).toBe(false);
+            //expect($body.hasClass('menu-hidden')).toBe(false);
+            expect($body.hasClass('menu-hidden')).toBeFalsy();
 
             $('.menu-icon-link').trigger('click');
-            expect($body.hasClass('menu-hidden')).toBe(true);
+            expect($body.hasClass('menu-hidden')).toBeTruthy();
         });
     });
 
@@ -109,16 +110,16 @@ $(function () {
 
             loadFeed(0, function () {
                 entries_before = $('.feed').find("h2").text();
-            });
-
-            loadFeed(1, function () {
-                entries_after = $('.feed').find("h2").text();
                 done();
             });
         });
 
         it('changes the content when new feed is loaded', function (done) {
-            expect(entries_before).not.toEqual(entries_after)
+            loadFeed(1, function () {
+                entries_after = $('.feed').find("h2").text();
+            });
+
+            expect(entries_before).not.toEqual(entries_after);
             done();
         });
     });
