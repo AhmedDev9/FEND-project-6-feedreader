@@ -108,19 +108,31 @@ $(function () {
         beforeEach(function (done) {
             $('.feed').empty();
 
+            /* First we call the feed and save the titles in the 'entries_before' variable,
+             * which we will use to compare later with the second loaded feed.
+             * We use 'beforeEach' to load this one before starting any comparison.
+             * We put done() because it's asyncrhonous, without it the entries_before
+             * assignment wouldn't wait to loadFeed to finish.
+             */
             loadFeed(0, function () {
                 entries_before = $('.feed').find("h2").text();
+                console.log("entries before: " + entries_before);
                 done();
             });
         });
 
         it('changes the content when new feed is loaded', function (done) {
+            /* Here we load the feed again. This time we save the titles in the
+             * 'entries_after' variable, and then we will compare them with 'entries_before'.
+             * Since this is the same feed, it is asyncrhonous and we need to use done(),
+             * to ensure that the feed has loaded enterily before comparing variables.
+             */
             loadFeed(1, function () {
                 entries_after = $('.feed').find("h2").text();
+                console.log("entries after: " + entries_after);
+                expect(entries_before).not.toEqual(entries_after);
+                done();
             });
-
-            expect(entries_before).not.toEqual(entries_after);
-            done();
         });
     });
 } ());
